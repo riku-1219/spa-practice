@@ -4,6 +4,7 @@ const CheckBox = () => {
   const [error, setError] = useState(null);
   const [isLoaded, setIsLoaded] = useState(false);
   const [prefs, setPrefs] = useState([]);
+  const [isChecked, setIsChecked] = useState(false);
 
   useEffect(() => {
     fetch("https://opendata.resas-portal.go.jp/api/v1/prefectures", {
@@ -34,7 +35,7 @@ const CheckBox = () => {
         {prefs.map(item => (
           <>
           <label htmlFor="check">{item.prefName}：</label>
-          <input type="checkbox" id="check" />
+          <input type="checkbox" id="check" onClick={setIsChecked(!isChecked)} />
           </>
         ))}
       </> 
