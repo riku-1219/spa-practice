@@ -3,8 +3,13 @@ import React from "react";
 const CheckBox = (props) => {
   return (
     <>
-      <label htmlFor='check'>{props.name}：</label>
-      <input type='checkbox' id='check' />
+      <label htmlFor='check' onClick={() => props.changeIsChecked(props.code)}>{props.name}：</label>
+      <input
+        type='checkbox'
+        id='check'
+        checked={props.isChecked}
+        onChange={() => props.changeIsChecked(props.code)}
+      />
     </>
   );
 };

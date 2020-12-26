@@ -7,9 +7,29 @@ export default class App extends React.Component {
     this.state = {
       error: null,
       isLoaded: false,
-      prefs: []
+      prefs: [],
+      checkedCodes: new Set([]),
     };
+
+    this.changeIsChecked = this.changeIsChecked.bind(this);
   }
+
+  changeIsChecked = (prefCode) => {
+    const checkedCodes = new Set(this.state.checkedCodes);
+    if (checkedCodes.has(prefCode)) {
+      checkedCodes.delete(prefCode);
+    } else {
+      checkedCodes.add(prefCode);
+      console.log(this.state.checkedCodes);
+    }
+    this.setState({ checkedCodes: checkedCodes });
+    console.log(
+      this.state.prefs
+      .filter((pref) => checkedCodes.has(pref.prefCode))
+      .map((pref) => pref.prefCode)
+      );
+      console.log(checkedCodes);
+  };
 
   componentDidMount() {
     fetch("https://opendata.resas-portal.go.jp/api/v1/prefectures", {
@@ -17,21 +37,21 @@ export default class App extends React.Component {
         "X-API-KEY": "txoJHsTPn2FZJH94ezJGJ9OxKejn76ecrgOrwDlb",
       },
     })
-      .then(res => res.json())
+      .then((res) => res.json())
       .then(
         (data) => {
           this.setState({
             isLoaded: true,
-            prefs: data.result
+            prefs: data.result,
           });
         },
         (error) => {
           this.setState({
             isLoaded: true,
-            error
+            error,
           });
         }
-      )
+      );
   }
 
   render() {
@@ -42,9 +62,12 @@ export default class App extends React.Component {
       return <div>Loading...</div>;
     } else {
       return (
-        <CheckBoxes prefs={this.state.prefs} />
+        <CheckBoxes
+          prefs={this.state.prefs}
+          checkedCodes={this.state.checkedCodes}
+          changeIsChecked={this.changeIsChecked}
+        />
       );
     }
   }
 }
-
