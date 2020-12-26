@@ -9,9 +9,8 @@ const CheckBoxes = (props) => {
           <CheckBox
             name={pref.prefName}
             key={pref.prefCode}
-            code={pref.prefCode}
             isChecked={props.checkedCodes.has(pref.prefCode)}
-            changeIsChecked={props.changeIsChecked}
+            changeIsChecked={() => props.changeIsChecked(pref.prefCode)}
           />
         );
       })}
