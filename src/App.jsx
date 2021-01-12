@@ -1,6 +1,6 @@
 import React from "react";
 import { CheckBoxes } from "./components/index";
-import Graph from "./components/Graph"
+import Chart from "./components/Chart";
 
 export default class App extends React.Component {
   constructor(props) {
@@ -69,7 +69,7 @@ export default class App extends React.Component {
             checkedCodes={this.state.checkedCodes}
             changeIsChecked={this.changeIsChecked}
           />
-          <Graph checkedCodes={this.state.checkedCodes} />
+          <Chart checkedCodes={this.state.checkedCodes} />
         </div>
       );
     }
