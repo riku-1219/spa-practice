@@ -1,5 +1,6 @@
 import React from "react";
 import { CheckBoxes } from "./components/index";
+import Graph from "./components/Graph"
 
 export default class App extends React.Component {
   constructor(props) {
@@ -20,15 +21,15 @@ export default class App extends React.Component {
       checkedCodes.delete(prefCode);
     } else {
       checkedCodes.add(prefCode);
-      console.log(this.state.checkedCodes);
+      console.log(this.state.checkedCodes); // デバッグのため後で削除
     }
     this.setState({ checkedCodes: checkedCodes });
+    // デバッグのため後で削除
     console.log(
       this.state.prefs
-      .filter((pref) => checkedCodes.has(pref.prefCode))
-      .map((pref) => pref.prefCode)
-      );
-      console.log(checkedCodes);
+        .filter((pref) => checkedCodes.has(pref.prefCode))
+        .map((pref) => pref.prefCode)
+    );
   };
 
   componentDidMount() {
@@ -62,11 +63,14 @@ export default class App extends React.Component {
       return <div>Loading...</div>;
     } else {
       return (
-        <CheckBoxes
-          prefs={this.state.prefs}
-          checkedCodes={this.state.checkedCodes}
-          changeIsChecked={this.changeIsChecked}
-        />
+        <div>
+          <CheckBoxes
+            prefs={this.state.prefs}
+            checkedCodes={this.state.checkedCodes}
+            changeIsChecked={this.changeIsChecked}
+          />
+          <Graph checkedCodes={this.state.checkedCodes} />
+        </div>
       );
     }
   }
